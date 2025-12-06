@@ -10,24 +10,24 @@ Inter-VLAN routing performed using a single router interface (GigabitEthernet0/0
 - Access ports assigned to VLANs 10, 20, and 30
 
 ## VLAN Summary
-VLAN 10: 10.0.0.0/26 (Gateway 10.0.0.62) - Using last possible IP address as a gateway address for that VLAN.
-VLAN 20: 10.0.0.64/26 (Gateway 10.0.0.126) - Using last possible IP address as a gateway address for that VLAN.
-VLAN 30: 10.0.0.128/26 (Gateway 10.0.0.190) - Using last possible IP address as a gateway address for that VLAN.
+- VLAN 10: 10.0.0.0/26 (Gateway 10.0.0.62) - Using last possible IP address as a gateway address for that VLAN.
+- VLAN 20: 10.0.0.64/26 (Gateway 10.0.0.126) - Using last possible IP address as a gateway address for that VLAN.
+- VLAN 30: 10.0.0.128/26 (Gateway 10.0.0.190) - Using last possible IP address as a gateway address for that VLAN.
 
 ## Key Configuration
 
 # Router
 interface g0/0.10
- encapsulation dot1Q 10
- ip address 10.0.0.62 255.255.255.192
+- encapsulation dot1Q 10
+- ip address 10.0.0.62 255.255.255.192
 
 interface g0/0.20
- encapsulation dot1Q 20
- ip address 10.0.0.126 255.255.255.192
+- encapsulation dot1Q 20
+- ip address 10.0.0.126 255.255.255.192
 
 interface g0/0.30
- encapsulation dot1Q 30
- ip address 10.0.0.190 255.255.255.192
+- encapsulation dot1Q 30
+- ip address 10.0.0.190 255.255.255.192
 
 # Switch1 trunk
 interface g0/1
