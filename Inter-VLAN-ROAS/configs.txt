@@ -1,0 +1,50 @@
+! Router subinterfaces
+interface g0/0.10
+ encapsulation dot1Q 10
+ ip address 10.0.0.62 255.255.255.192
+
+interface g0/0.20
+ encapsulation dot1Q 20
+ ip address 10.0.0.126 255.255.255.192
+
+interface g0/0.30
+ encapsulation dot1Q 30
+ ip address 10.0.0.190 255.255.255.192
+
+----------------TRUNK INTERFACES----------------
+  
+! Switch1 trunk
+interface g0/1
+ switchport mode trunk
+ switchport trunk allowed vlan 10,30
+
+interface g0/2
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30
+
+  
+! Switch0 trunk
+interface g0/1
+ switchport mode trunk
+ switchport trunk allowed vlan 10,30
+
+----------------ACCESS INTERFACES----------------
+
+! Switch1 access
+interface fa0/1
+ switchport mode access
+ switchport access vlan 20
+
+interface range fa0/2 - 3
+ switchport mode access
+ switchport access vlan 10
+
+! Switch0 access
+interface range fa0/1 - 2
+ switchport mode access
+ switchport access vlan 10
+
+interface range fa0/3 - 4
+ switchport mode access
+ switchport access vlan 30
+
