@@ -31,12 +31,12 @@ interface g0/0.30
 
 # Switch1 trunk
 interface g0/1
- switchport mode trunk
- switchport trunk allowed vlan 10,30
+- switchport mode trunk
+- switchport trunk allowed vlan 10,30
 
 interface g0/2
- switchport mode trunk
- switchport trunk allowed vlan 10,20,30
+- switchport mode trunk
+- switchport trunk allowed vlan 10,20,30
 
 ## Verification
 - Successful ping between VLAN 10, VLAN 20, VLAN 30
