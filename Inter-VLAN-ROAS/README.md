@@ -5,7 +5,14 @@ Inter-VLAN routing performed using a single router interface (GigabitEthernet0/0
 
 ## Topology
 
-- Switch to router link configured as trunk
+# Layer 1 connections:
+- Switch1 -> Router is connected with Copper UTP cable;
+- Switch1 -> Hosts (PC's) are connected with Copper UTP cables;
+- Both Switches are connected with Copper Cross-Over cable, due to the lack of Auto-MDIX technology.
+
+# Topology Summary
+- Switch to Router link configured as trunk
+- Switch to Switch link also configured as trunk
 - Router handles routing between VLAN subnets
 - Access ports assigned to VLANs 10, 20, and 30
 
@@ -14,35 +21,10 @@ Inter-VLAN routing performed using a single router interface (GigabitEthernet0/0
 - VLAN 20: 10.0.0.64/26 (Gateway 10.0.0.126) - Using last possible IP address as a gateway address for that VLAN.
 - VLAN 30: 10.0.0.128/26 (Gateway 10.0.0.190) - Using last possible IP address as a gateway address for that VLAN.
 
-## Key Configuration
-
-# Router
-interface g0/0.10
-- encapsulation dot1Q 10
-- ip address 10.0.0.62 255.255.255.192
-
-interface g0/0.20
-- encapsulation dot1Q 20
-- ip address 10.0.0.126 255.255.255.192
-
-interface g0/0.30
-- encapsulation dot1Q 30
-- ip address 10.0.0.190 255.255.255.192
-
-# Switch1 trunk
-interface g0/1
-- switchport mode trunk
-- switchport trunk allowed vlan 10,30
-
-interface g0/2
-- switchport mode trunk
-- switchport trunk allowed vlan 10,20,30
-
 ## Verification
 - Successful ping between VLAN 10, VLAN 20, VLAN 30
 - Trunk link from Switch1 to Router passing VLANs 10/20/30
 - Router subinterfaces reachable
-
 
 ## Notes
 ROAS is suitable for smaller VLAN deployments. For larger environments or higher traffic needs, multilayer switching (SVI routing) is typically more efficient (ROAS in such cases can cause network congestions).
