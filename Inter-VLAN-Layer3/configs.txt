@@ -1,0 +1,60 @@
+! Router interface, that is used to let traffic access the external networks
+interface g0/0
+ ip address 10.0.0.194 255.255.255.252
+ no shutdown
+
+----------------TRUNK INTERFACES----------------
+  
+! MLS trunk
+interface g1/0/5
+ switchport mode trunk
+ switchport trunk allowed vlan 10,30
+
+  
+! Switch0 trunk
+interface g0/1
+ switchport mode trunk
+ switchport trunk allowed vlan 10,30
+
+----------------ACCESS INTERFACES----------------
+
+! MLS access
+interface g1/0/1
+ switchport mode access
+ switchport access vlan 20
+
+interface range g1/0/2 - 3
+ switchport mode access
+ switchport access vlan 10
+
+! Switch0 access
+interface range fa0/1 - 2
+ switchport mode access
+ switchport access vlan 10
+
+interface range fa0/3 - 4
+ switchport mode access
+ switchport access vlan 30
+
+
+----------------MLS and it's SVIs----------------
+
+ip routing
+
+! interface g1/0/4 is used to access external network
+interface g1/0/4
+  no switchport
+  ip address 10.0.0.193 255.255.255.252
+  no shutdown
+
+interface vlan 10
+  ip address 10.0.0.62 255.255.255.192
+  no shutdown
+
+interface vlan 20
+  ip address 10.0.0.126 255.255.255.192
+  no shutdown
+
+interface vlan 30
+  ip address 10.0.0.190 255.255.255.192
+  no shutdown
