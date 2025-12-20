@@ -1,0 +1,135 @@
+! ================= ISPR1 =================
+
+interface g0/0
+ ip address 203.0.113.2 255.255.255.252
+ no shutdown
+  
+! ================= ROUTER 1 =================
+! --- Loopback virtual interface---
+interface l 1
+ ip address 1.1.1.1 255.255.255.255
+
+interface g3/0
+ ip address 203.0.113.1 255.255.255.252
+ no shutdown
+
+interface g0/0
+ ip address 10.0.12.1 255.255.255.252
+ no shutdown
+
+interface fa1/0
+ ip address 10.0.13.1 255.255.255.252
+ no shutdown
+
+conf t
+ip route 0.0.0.0 0.0.0.0 203.0.113.2
+router ospf 1
+ network 10.0.12.1 0.0.0.3 area 0
+ network 10.0.13.1 0.0.0.3 area 0
+ default-information originate
+
+! ================= ROUTER 2 =================
+
+! --- Loopback virtual interface---
+interface l 1
+ ip address 2.2.2.2 255.255.255.255
+  
+interface g0/0
+ ip address 10.0.12.2 255.255.255.252
+ no shutdown
+
+interface fa1/0
+ ip address 10.0.24.1 255.255.255.252
+ no shutdown
+
+conf t
+router ospf 1
+ network 10.0.12.2 0.0.0.3 area 0
+ network 10.0.24.1 0.0.0.3 area 0
+
+
+! ================= MLS 0 =================
+ip routing
+
+! --- Loopback virtual interface---
+interface l 1
+ ip address 3.3.3.3 255.255.255.255
+
+! --- L3 uplink to router 1---
+interface fa0/2
+ no switchport
+ ip address 10.0.13.2 255.255.255.252
+ no shutdown
+
+! --- Trunk to other MLS (MLS 1) and to the access switch---
+interface fa0/1
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20
+ no shutdown
+
+interface fa0/3
+  switchport mode trunk
+  switchport trunk allowed vlan 10,20
+  no shutdown
+  
+! --- Access ports on switch 0 ---
+interface fa0/1
+ switchport mode access
+ switchport access vlan 20
+
+interface fa0/2
+ switchport mode access
+ switchport access vlan 10
+
+! --- VLAN SVIs on MLS0 ---
+interface vlan 20
+ ip address 172.17.1.0 255.255.255.248
+ no shutdown
+
+! --- OSPF ---
+router ospf 1
+ network 10.0.13.2 0.0.0.3 area 0
+ network 3.3.3.3 0.0.0.0 area 0
+ passive-interface vlan 10
+ passive-interface vlan 20
+ passive-interface l 1
+ passive-interface fa0/3
+
+
+! ================= MLS 1 =================
+ip routing
+
+! --- Loopback virtual interface ---
+interface l 1
+ ip address 4.4.4.4 255.255.255.255
+
+! --- L3 uplink to Router 2 ---
+interface fa0/3
+ no switchport
+ ip address 10.0.24.2 255.255.255.252
+ no shutdown
+
+! --- Trunk to MLS0 ---
+interface fa0/1
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20
+ no shutdown
+
+! --- Trunk to access switch ---
+interface fa0/2
+ switchport mode trunk
+ switchport trunk allowed vlan 10
+ no shutdown
+
+! --- VLAN SVI ---
+interface vlan 10
+ ip address 192.168.4.254 255.255.255.0
+ no shutdown
+
+! --- OSPF ---
+router ospf 1
+ network 10.0.24.2 0.0.0.3 area 0
+ network 192.168.4.0 0.0.0.255 area 0
+ network 4.4.4.4 0.0.0.0 area 0
+ passive-interface l 1
+ passive-interface fa0/2
