@@ -44,7 +44,7 @@ This design represents a scalable enterprise-style Layer 3 switching architectur
 - SVIs and routed uplink interfaces participate in OSPF
 - Access VLAN interfaces are configured as passive interfaces
 - The router exchanges routes dynamically with the MLS
-- All routers and ML Switches (Layer 3) are configured to have last resort gateway set to ISPR1's interface
+- All Layer 3 devices use a default route toward ISPR1, distributed via OSPF
 
 ---
 
