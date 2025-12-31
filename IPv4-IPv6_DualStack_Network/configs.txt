@@ -1,0 +1,123 @@
+! ======================= ROUTER1 (2811) =======================
+enable
+conf t
+ipv6 unicast-routing
+
+! --- LAN Interface (to ML switch) ---
+interface fastethernet0/0
+ ip address 192.168.100.1 255.255.255.240
+ ipv6 address 2001:db8:3445:ABDE::1/64
+ no shutdown
+
+! --- WAN Serial Link (to Router2) ---
+interface serial0/3/0
+ ip address 203.0.113.1 255.255.255.252
+ no shutdown
+
+! --- Loopback (VLSM /32) ---
+interface loopback0
+ ip address 192.168.100.16 255.255.255.255
+
+do wr mem
+
+
+! ======================= ROUTER2 (2811) =======================
+enable
+conf t
+
+ipv6 unicast-routing
+
+! --- LAN Interface (to ML switch) ---
+interface fastethernet0/0
+ ip address 192.168.100.2 255.255.255.240
+ ipv6 address 2001:db8:3445:ABDE::2/64
+ no shutdown
+
+! --- WAN Serial Link (to Router1) ---
+interface serial0/3/0
+ ip address 203.0.113.2 255.255.255.252
+ no shutdown
+
+! --- Loopback (VLSM /32) ---
+interface loopback0
+ ip address 192.168.100.17 255.255.255.255
+
+do wr mem
+
+
+! ================== MULTILAYER SWITCH2 (3650) ==================
+enable
+conf t
+
+! Management SVI (VLAN 1) - IPv4 + IPv6 SLAAC
+interface vlan 1
+ ip address 192.168.100.3 255.255.255.240
+ ipv6 address autoconfig
+ no shutdown
+
+do wr mem
+
+
+! ================== MULTILAYER SWITCH3 (3650) ==================
+enable
+conf t
+
+! Management SVI (VLAN 1) - IPv4 + IPv6 SLAAC
+interface vlan 1
+ ip address 192.168.100.4 255.255.255.240
+ ipv6 address autoconfig
+ no shutdown
+
+do wr mem
+
+
+! ===================== ACCESS SWITCH0 (2960) ====================
+enable
+conf t
+
+interface vlan 1
+ ip address 192.168.100.5 255.255.255.240
+ no shutdown
+
+do wr mem
+
+
+! ===================== ACCESS SWITCH1 (2960) ====================
+enable
+conf t
+
+interface vlan 1
+ ip address 192.168.100.6 255.255.255.240
+ no shutdown
+
+do wr mem
+
+
+! ===================== ACCESS SWITCH2 (2960) ====================
+enable
+conf t
+
+interface vlan 1
+ ip address 192.168.100.7 255.255.255.240
+ no shutdown
+
+do wr mem
+
+
+! ============================ PCs =============================
+! (Configured in Packet Tracer > Config)
+
+! PC0
+! IPv4: 192.168.100.8  255.255.255.240
+! IPv6: SLAAC (from Router RAs) within 2001:db8:3445:ABDE::/64
+! GW:   (none required within same subnet)
+
+! PC1
+! IPv4: 192.168.100.9  255.255.255.240
+! IPv6: SLAAC
+! GW:   (none required within same subnet)
+
+! PC2
+! IPv4: 192.168.100.10 255.255.255.240
+! IPv6: SLAAC
+! GW:   (none required within same subnet)
