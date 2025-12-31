@@ -109,9 +109,7 @@ The following checks confirm correct operation:
 
 - Successful IPv4 pings between all hosts
 - Successful IPv6 pings between all hosts
-- Reachability of router loopback addresses
-- Correct EUI-64–derived IPv6 addresses on router interfaces
-- IPv6 autoconfig addresses present on multilayer switch VLAN 1
+- IPv6 autoconfig addresses present on multilayer switches VLAN 1
 - All switch ports in **Up/Up** state
 - Proper ARP and IPv6 Neighbor Discovery operation
 - WAN link between routers operational
@@ -121,7 +119,7 @@ The following checks confirm correct operation:
 ## Design Notes
 
 - VLSM is used to efficiently subnet a `/24` IPv4 network based on actual host requirements
-- IPv6 EUI-64 and SLAAC are used to demonstrate automatic address configuration
+- IPv6 SLAAC are used to demonstrate automatic address configuration
 - A flat network design simplifies troubleshooting and highlights protocol fundamentals
 - The absence of default gateways reinforces understanding of when routing is required
 - Dual-stack configuration demonstrates IPv4 and IPv6 coexistence
@@ -132,4 +130,4 @@ The following checks confirm correct operation:
 
 ## Conclusion
 
-This lab demonstrates a **minimalist dual-stack network** with efficient IPv4 addressing using VLSM and native IPv6 support through EUI-64 and SLAAC. By operating within a single broadcast domain and avoiding unnecessary routing architecture, this design clearly illustrates how hosts communicate at Layer 2 and Layer 3 when no subnet boundaries exist.
+This lab demonstrates a **minimalist dual-stack network** with efficient IPv4 addressing using VLSM and native IPv6 support through SLAAC. By operating within a single broadcast domain and avoiding unnecessary routing architecture, this design clearly illustrates how hosts communicate at Layer 2 and Layer 3 when no subnet boundaries exist.
