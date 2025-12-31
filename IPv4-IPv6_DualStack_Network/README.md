@@ -1,7 +1,7 @@
 # Dual-Stack IPv4 / IPv6 Flat Network with Multilayer Switches
 ## Overview
 
-This lab demonstrates a **simple dual-stack IPv4 and IPv6 network** operating within a **single Layer-2 broadcast domain**. The design intentionally avoids VLAN segmentation and default gateways to focus on **fundamental networking concepts**, including Layer-2 switching, Layer-3 adjacency, efficient IPv4 subnetting using **VLSM**, and IPv6 address configuration using **EUI-64 and SLAAC**.
+This lab demonstrates a **simple dual-stack IPv4 and IPv6 network** operating within a **single Layer-2 broadcast domain**. The design intentionally avoids VLAN segmentation and default gateways to focus on **fundamental networking concepts**, including Layer-2 switching, Layer-3 adjacency, efficient IPv4 subnetting using **VLSM**, and IPv6 address configuration using **SLAAC**.
 
 Multilayer switches are used primarily as **distribution devices**, while routing is provided by routers connected upstream. All end devices operate within the same IPv4 subnet and IPv6 prefix, allowing direct host-to-host communication without inter-subnet routing.
 
