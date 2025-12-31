@@ -79,11 +79,10 @@ This VLSM approach demonstrates efficient IPv4 address utilization by allocating
 
 ### Routers
 
-- Router LAN interfaces use **EUI-64–derived IPv6 addresses**
+- Routers use manually assigned IPv6 addresses (::1 and ::2) for predictable interface identification.
 - Resulting interface identifiers:
   - Router1 ends with `::1`
   - Router2 ends with `::2`
-- This demonstrates automatic IPv6 interface ID generation based on MAC addresses
 
 ### Multilayer Switches
 
